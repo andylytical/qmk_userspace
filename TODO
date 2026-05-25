@@ -1,0 +1,10 @@
+* macros to send open&cose then move cursor left one to type inside
+  * https://docs.qmk.fm/feature_macros
+  * https://docs.qmk.fm/features/send_string#examples
+  * ctl+[  ->  [] + move cursor one left
+  * ctl+]  ->  {} + move cursor one left
+  * ctl+)  ->  () + move cursor one left (set pinky right shift to SC_RCPC)
+
+
+* set the exact rgb animation
+	* see keyboard.json
