@@ -3,7 +3,7 @@
   "notes": "",
   "version": 1,
   "keyboard": "xbows/knight_plus",
-  "keymap": "ajl_knight_plus",
+  "keymap": "andylytical_knight_plus",
   "layout": "LAYOUT",
   "layers": [
     [
@@ -35,7 +35,7 @@
       "KC_0",
       "KC_MINS",
       "KC_EQL",
-      "KC_BSPC",
+      "KC_NO",
       "KC_TAB",
       "KC_Q",
       "KC_W",
@@ -124,7 +124,7 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "KC_NO",
+      "KC_ESC",
       "KC_Q",
       "KC_1",
       "KC_2",
@@ -271,5 +271,5 @@
       "KC_MNXT"
     ]
   ],
-  "author": ""
+  "author": "andylytical"
 }
