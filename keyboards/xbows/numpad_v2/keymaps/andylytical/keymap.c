@@ -12,7 +12,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_numpad_6x4(KC_ESC, KC_TAB, KC_BSPC, MO(1), KC_NUM, KC_PSLS, KC_PAST, KC_PMNS, KC_P7, KC_P8, KC_P9, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_P1, KC_P2, KC_P3, KC_P0, KC_PDOT, KC_PENT),
-    [1] = LAYOUT_numpad_6x4(QK_BOOT, EE_CLR, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, RM_NEXT, RM_VALU, RM_HUEU, RM_SPDD, RM_VALD, RM_HUED, RM_SPDU, KC_NO, KC_NO, KC_NO, RM_TOGG, KC_NO, RM_SPDD)
+    [1] = LAYOUT_numpad_6x4(QK_BOOT, EE_CLR, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, LM_SPDD, RM_NEXT, RM_VALU, RM_HUEU, RM_PREV, RM_VALD, RM_HUED, RM_SPDU, KC_NO, KC_NO, KC_NO, RM_TOGG, KC_NO, KC_NO)
 };
 
 
@@ -27,37 +27,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * rgb.c
  */
 /* Lighting per layer */
-#define _LETTERS  KC_A ... KC_Z
-#define _NUMBERS  KC_1 ... KC_0
-#define _F_KEYS  KC_F1 ... KC_F12
-/* MODIFIER_KEYCODE_RANGE already defined in keycodes.h */
+#define _NUMBERS  KC_KP_1 ... KC_KP_DOT
+#define _OPERATIONS  KC_KP_SLASH ... KC_KP_ENTER
 
 /* Layer indicator only on keys with configured keycodes */
 /* https://docs.qmk.fm/features/rgb_matrix#callbacks */
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
   uint8_t layer = get_highest_layer(layer_state);
-  if (layer > 0) {
+  /* if (layer > 0) { */
     for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
       for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
         uint8_t index = g_led_config.matrix_co[row][col];
         uint8_t keycode = keymap_key_to_keycode(layer, (keypos_t){col,row});
         if (index >= led_min && index < led_max && index != NO_LED) {
           switch (keycode) {
-            case _LETTERS:
-              rgb_matrix_set_color( index, RGB_MAGENTA );
-              break;
             case _NUMBERS:
-              rgb_matrix_set_color( index, RGB_CYAN );
-              break;
-            case _F_KEYS:
               rgb_matrix_set_color( index, RGB_GREEN );
               break;
-            /* case AUDIO_KEYCODE_RANGE: */
-            /*   rgb_matrix_set_color( index, RGB_GOLD ); */
-            /*   break; */
-            /* case RGB_MATRIX_KEYCODE_RANGE: */
-            /*   rgb_matrix_set_color( index, RGB_YELLOW ); */
-            /*   break; */
+            case _OPERATIONS:
+              rgb_matrix_set_color( index, RGB_PURPLE );
+              break;
             default:
               if ( keycode > KC_TRNS ) {
                 rgb_matrix_set_color(index, RGB_RED);
@@ -68,6 +57,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         }
       }
     }
-  }
+  /* } */
   return false;
 }

@@ -11,7 +11,7 @@
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_PSCR, KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_NO, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP, KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_BSPC, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGDN, SC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_ENT, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, SC_RSPC, KC_UP, SS_MATCHING_SQUARES, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_LSFT, KC_SPC, KC_RALT, MO(2), SS_MATCHING_CURLYS, KC_LEFT, KC_DOWN, KC_RGHT),
+    [0] = LAYOUT(KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_PSCR, KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_NO, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP, KC_ESC, KC_A, KC_S, KC_D, KC_F, KC_G, KC_BSPC, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGDN, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_ENT, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_HOME, KC_UP, KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_RSFT, KC_SPC, KC_RALT, MO(2), KC_END, KC_LEFT, KC_DOWN, KC_RGHT),
     [1] = LAYOUT(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_F10, KC_NO, TG(1), KC_NO, KC_NO, KC_NO, KC_NO, KC_F2, KC_F3, KC_F4, KC_U, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_3, KC_Q, KC_1, KC_2, KC_R, KC_T, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_ESC, KC_4, KC_S, KC_5, KC_F, KC_G, KC_H, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_6, KC_7, KC_8, KC_C, KC_V, KC_B, KC_P, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_9, KC_NO, KC_NO, KC_LSFT, KC_LCTL, LCS_T(KC_TRNS), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO),
     [2] = LAYOUT(QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(1), KC_TRNS, EE_CLR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS, RM_TOGG, RM_NEXT, RM_SPDU, RM_VALU, RM_HUEU, RM_SATU, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY, KC_MPRV, KC_MNXT, KC_TRNS, KC_HOME, KC_TRNS, RM_PREV, RM_SPDD, RM_VALD, RM_HUED, RM_SATD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLU, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_VOLD, KC_MNXT)
 };
@@ -25,49 +25,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 /* 
- * keymap.c
- */
-
-/* 
- * macros.c
- */
-/* https://docs.qmk.fm/feature_macros#using-macros-in-c-keymaps */
-/* https://docs.qmk.fm/features/send_string#examples */
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case SS_MATCHING_CURLYS:
-      if (record->event.pressed) {
-        SEND_STRING("{}" SS_TAP(X_LEFT));
-      }
-      break;
-    case SS_MATCHING_PARENS:
-      if (record->event.pressed) {
-        SEND_STRING("()" SS_TAP(X_LEFT));
-      }
-      break;
-    case SS_MATCHING_SQUARES:
-      if (record->event.pressed) {
-        SEND_STRING("[]" SS_TAP(X_LEFT));
-      }
-      break;
-  }
-  return true;
-}
-
-/* 
  * overrides.c
  */
+/* See also: */
+/* https://docs.qmk.fm/features/key_overrides */
 /* Key Overrides */
-/* SHIFT + PGUP => HOME */
-const key_override_t pg_up_key_override   = ko_make_basic(MOD_MASK_SHIFT, KC_PGUP, KC_HOME);
-/* SHIFT + PGDOWN => END */
-const key_override_t pg_down_key_override   = ko_make_basic(MOD_MASK_SHIFT, KC_PGDN, KC_END);
+/* CTRL + PGUP => HOME */
+const key_override_t ctrl_pgup_home =
+  ko_make_basic(
+    MOD_MASK_CTRL,  // Trigger modifiers: any ctrl
+    KC_PGUP,        // Trigger key: page-up
+    KC_HOME         // Replacement: home
+  );
+
+/* CTRL + PGDOWN => END */
+const key_override_t ctrl_pgdown_end =
+  ko_make_basic(
+    MOD_MASK_CTRL,  // Trigger modifiers: any ctrl
+    KC_PGDN,        // Trigger key: page-down
+    KC_END          // Replacement: end
+  );
+
+/* CTRL + UP => CAPSWORD */
+const key_override_t ctrl_up_capsword =
+  ko_make_basic(
+    MOD_MASK_CTRL,      // Trigger modifiers: any ctrl
+    KC_UP,              // Trigger key: page-down
+    QK_CAPS_WORD_TOGGLE // Replacement: end
+  );
 
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
-	&pg_up_key_override,
-	&pg_down_key_override
+	&ctrl_pgup_home,
+	&ctrl_pgdown_end,
+  &ctrl_up_capsword
 };
 
 /* 

@@ -3,7 +3,7 @@
   "notes": "",
   "version": 1,
   "keyboard": "xbows/numpad_v2",
-  "keymap": "andylytical",
+  "keymap": "andylytical_xbows_numpadv2",
   "layout": "LAYOUT_numpad_6x4",
   "layers": [
     [
@@ -37,11 +37,11 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "KC_NO",
+      "LM_SPDD",
       "RM_NEXT",
       "RM_VALU",
       "RM_HUEU",
-      "RM_SPDD",
+      "RM_PREV",
       "RM_VALD",
       "RM_HUED",
       "RM_SPDU",
@@ -50,7 +50,7 @@
       "KC_NO",
       "RM_TOGG",
       "KC_NO",
-      "RM_SPDD"
+      "KC_NO"
     ]
   ],
   "author": ""

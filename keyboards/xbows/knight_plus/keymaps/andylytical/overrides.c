@@ -1,11 +1,33 @@
+/* See also: */
+/* https://docs.qmk.fm/features/key_overrides */
 /* Key Overrides */
-/* SHIFT + PGUP => HOME */
-const key_override_t pg_up_key_override   = ko_make_basic(MOD_MASK_SHIFT, KC_PGUP, KC_HOME);
-/* SHIFT + PGDOWN => END */
-const key_override_t pg_down_key_override   = ko_make_basic(MOD_MASK_SHIFT, KC_PGDN, KC_END);
+/* CTRL + PGUP => HOME */
+const key_override_t ctrl_pgup_home =
+  ko_make_basic(
+    MOD_MASK_CTRL,  // Trigger modifiers: any ctrl
+    KC_PGUP,        // Trigger key: page-up
+    KC_HOME         // Replacement: home
+  );
+
+/* CTRL + PGDOWN => END */
+const key_override_t ctrl_pgdown_end =
+  ko_make_basic(
+    MOD_MASK_CTRL,  // Trigger modifiers: any ctrl
+    KC_PGDN,        // Trigger key: page-down
+    KC_END          // Replacement: end
+  );
+
+/* CTRL + UP => CAPSWORD */
+const key_override_t ctrl_up_capsword =
+  ko_make_basic(
+    MOD_MASK_CTRL,      // Trigger modifiers: any ctrl
+    KC_UP,              // Trigger key: page-down
+    QK_CAPS_WORD_TOGGLE // Replacement: end
+  );
 
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
-	&pg_up_key_override,
-	&pg_down_key_override
+	&ctrl_pgup_home,
+	&ctrl_pgdown_end,
+  &ctrl_up_capsword
 };
