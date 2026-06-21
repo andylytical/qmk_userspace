@@ -78,6 +78,12 @@ mk_header() {
 }
 
 
+cleanup() {
+  [[ $DEBUG -eq $YES ]] && set -x
+  rm -f "${KEYMAP}" "${HEADER}"
+}
+
+
 print_usage() {
   echo "${PRG} - create keymap.h, keymap.c, and compile"
   echo "SYNOPSIS: ${PRG} [options]"
@@ -134,3 +140,5 @@ ENDHERE
 done
 
 [[ -f "${KEYMAP}" ]] && [[ $COMPILE -eq $YES ]] && qmk compile
+
+cleanup
