@@ -2,6 +2,9 @@
 #define _LETTERS  KC_A ... KC_Z
 #define _NUMBERS  KC_1 ... KC_0
 #define _F_KEYS  KC_F1 ... KC_F12
+#define _AUDIO_VOL KC_AUDIO_MUTE ... KC_AUDIO_VOL_DOWN
+#define _AUDIO_TRACK KC_MEDIA_NEXT_TRACK ... KC_MEDIA_PREV_TRACK
+#define _MEDIA_ACTION KC_MEDIA_STOP ... KC_MEDIA_PLAY_PAUSE
 /* MODIFIER_KEYCODE_RANGE already defined in keycodes.h */
 
 /* Layer indicator only on keys with configured keycodes */
@@ -22,14 +25,15 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
               rgb_matrix_set_color( index, RGB_CYAN );
               break;
             case _F_KEYS:
+            case _AUDIO_VOL:
               rgb_matrix_set_color( index, RGB_GREEN );
               break;
-            /* case AUDIO_KEYCODE_RANGE: */
-            /*   rgb_matrix_set_color( index, RGB_GOLD ); */
-            /*   break; */
-            /* case RGB_MATRIX_KEYCODE_RANGE: */
-            /*   rgb_matrix_set_color( index, RGB_YELLOW ); */
-            /*   break; */
+            case _AUDIO_TRACK:
+              rgb_matrix_set_color( index, RGB_BLUE );
+              break;
+            case _MEDIA_ACTION:
+              rgb_matrix_set_color( index, RGB_RED );
+              break;
             default:
               if ( keycode > KC_TRNS ) {
                 rgb_matrix_set_color(index, RGB_RED);
