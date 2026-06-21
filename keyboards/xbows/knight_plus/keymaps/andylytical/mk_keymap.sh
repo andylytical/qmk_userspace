@@ -1,18 +1,21 @@
 #!/usr/bin/bash
 
-KEYMAP=keymap.c
-HEADER=keymap.h
+PRG=$( basename "$0" )
 
 YES=0
 NO=1
 
-VERBOSE=$YES
-DEBUG=$YES
+VERBOSE=$NO
+DEBUG=$NO
+COMPILE=$YES
 
 # ANSI escape codes for colors
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'  # No Color
+
+KEYMAP=keymap.c
+HEADER=keymap.h
 
 err() {
   echo -e "${RED}✗ ERROR: $*${NC}"
@@ -44,7 +47,7 @@ debug() {
 
 init() {
   [[ $DEBUG -eq $YES ]] && set -x
-  rm -qf "${KEYMAP}" "${HEADER}"
+  rm -f "${KEYMAP}" "${HEADER}"
 }
 
 
@@ -56,14 +59,34 @@ get_json() {
   ls *.json
 }
 
+
 get_keymap_parts() {
   [[ $DEBUG -eq $YES ]] && set -x
   ls *.c
 }
 
+
 mk_header() {
   [[ $DEBUG -eq $YES ]] && set -x
-  cat *.h >"${HEADER}"
+  local _h_files
+  set -x
+  _h_files=( $( ls *.h | grep -v config.h) )
+  for h_file in "${_h_files[@]}"; do
+    cat "${h_files[@]}" >>"${HEADER}"
+  done
+  set +x
+}
+
+
+print_usage() {
+  echo "${PRG} - create keymap.h, keymap.c, and compile"
+  echo "SYNOPSIS: ${PRG} [options]"
+  echo "OPTIONS:"
+  echo "  -h|--help       Print this help message"
+  echo "  -v|--verbose    Show 'info' messages"
+  echo "  -d|--debug      Show 'debug' messages"
+  echo "  -n|--nocompile  Skip the compile step"
+  echo
 }
 
 
@@ -72,9 +95,25 @@ mk_header() {
 # MAIN
 ###
 
+ENDWHILE=0
+while [[ $# -gt 0 ]] && [[ $ENDWHILE -eq 0 ]] ; do
+  case $1 in
+    -h|--help) print_usage;;
+    -v|--verbose) VERBOSE=$YES;;
+    -d|--debug) DEBUG=$YES;;
+    -n|--nocompile) COMPILE=$NO;;
+    --) ENDWHILE=1;;
+    -*) echo "Invalid option '$1'"; exit 1;;
+     *) ENDWHILE=1; break;;
+  esac
+  shift
+done
+
 [[ $DEBUG -eq $YES ]] && set -x
 
 init
+
+mk_header
 
 keymap_json=$( get_json )
 
@@ -94,4 +133,4 @@ ENDHERE
   cat "${fn}"  >>"${KEYMAP}"
 done
 
-[[ -f "${KEYMAP}" ]] && qmk compile
+[[ -f "${KEYMAP}" ]] && [[ $COMPILE -eq $YES ]] && qmk compile

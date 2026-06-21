@@ -2,6 +2,7 @@
     "userspace_version": "1.1",
     "build_targets": [
         ["xbows/knight_plus", "andylytical"],
-        ["xbows/numpad_v2", "andylytical"]
+        ["xbows/numpad_v2", "andylytical"],
+        ["xbows/knight", "andylytical"]
     ]
 }
