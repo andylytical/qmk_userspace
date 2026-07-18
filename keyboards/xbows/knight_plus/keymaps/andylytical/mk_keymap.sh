@@ -8,6 +8,7 @@ NO=1
 VERBOSE=$NO
 DEBUG=$NO
 COMPILE=$YES
+CLEANUP=$NO
 
 # ANSI escape codes for colors
 GREEN='\033[0;32m'
@@ -80,6 +81,7 @@ mk_header() {
 
 cleanup() {
   [[ $DEBUG -eq $YES ]] && set -x
+  [[ $CLEANUP -eq $NO ]] && return 0
   rm -f "${KEYMAP}" "${HEADER}"
 }
 
@@ -107,6 +109,7 @@ while [[ $# -gt 0 ]] && [[ $ENDWHILE -eq 0 ]] ; do
     -h|--help) print_usage;;
     -v|--verbose) VERBOSE=$YES;;
     -d|--debug) DEBUG=$YES;;
+    -c|--cleanup) CLEANUP=$YES;;
     -n|--nocompile) COMPILE=$NO;;
     --) ENDWHILE=1;;
     -*) echo "Invalid option '$1'"; exit 1;;

@@ -6,8 +6,9 @@ NO=1
 VERBOSE=$NO
 DEBUG=$NO
 COMPILE=$YES
-CLEANUP=$YES
+CLEANUP=$NO
 
+PRG=$( basename "$0" )
 QMK_USERSPACE=/home/aloftus/working/personal/qmk_userspace
 KEYMAP=andylytical
 KNIGHT_PLUS_DIR="${QMK_USERSPACE}"/keyboards/xbows/knight_plus/keymaps/"${KEYMAP}"
@@ -37,14 +38,16 @@ do_compile() {
   [[ $VERBOSE -eq $YES ]] && _options+=( '-v' )
   [[ $DEBUG -eq $YES ]] && _options+=( '-d' )
   [[ $COMPILE -eq $NO ]] && _options+=( '-n' )
+  [[ $CLEANUP -eq $YES ]] && _options+=( '-c' )
   ./mk_keymap.sh "${_options[@]}"
 }
 
 
-cleanup() {
+clean_local() {
+  # clean up files copied from knight_plus
   [[ $DEBUG -eq $YES ]] && set -x
-  [[ $CLEANUP -eq $NO ]] && return 0
-  rm *.json *.c *.h *.mk mk_keymap.sh
+  ls *.c *.h *.sh *.json | grep -v -E "keymap.c|config.h|rules.mk|${PRG}" \
+  | xargs -r rm 
 }
 
 
@@ -88,4 +91,4 @@ copy_files
 
 do_compile
 
-cleanup
+clean_local
