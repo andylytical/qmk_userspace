@@ -1,7 +1,3 @@
-# target created files
-keymap.c
-keymap.h
-
 # Junk files
 *.bak
 *.swp
